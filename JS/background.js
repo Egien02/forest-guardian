@@ -36,3 +36,13 @@ function Background()
 	// this.addChild(this.pic8);
 	
 }
+
+function holeBk()
+{
+	
+	base(this,LSprite,[]);
+	this.bitmapdata = new LBitmapData(imglist["holeback"]);//定义一个显示图片
+	this.pic1=new LBitmap(this.bitmapdata);
+	this.pic1.y=0;
+	this.addChild(this.pic1);
+}

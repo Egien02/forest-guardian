@@ -37,7 +37,6 @@ function Animal()
 }
 Animal.prototype.run = function()
 {
-	
 	this.fy = this.y;
 	this.speed = this.speed+9.8;//移动速度
 	this.y = this.y + this.speed;
@@ -116,6 +115,51 @@ Animal.prototype.run = function()
 			this.changeaction();
 			break;
 		}
+	}
+
+	var j=null;
+	for(j in BlackHolelayer.childList)
+	{
+		
+		if((this.x-BlackHolelayer.childList[j].x<=40&&BlackHolelayer.childList[j].x-this.x<=40)&&(BlackHolelayer.childList[j].y-this.y<=80&&this.y-BlackHolelayer.childList[j].y<=80))
+		{
+			
+			BlackHolelayer.removeChild(BlackHolelayer.childList[j]);
+			
+			holebk = new holeBk();
+			bglayer.addChild(holebk);
+			bglayer.setChildIndex(holebk, 1);
+			bglayer.removeChild(BlackHolelayer);
+			// sound = new LSound();
+			// sound.play("");
+			// sound.stop();
+			
+			
+		}
+	}
+
+	var k;
+	for(k in foodlayer.childList)
+	{
+		
+		if((this.x-foodlayer.childList[k].x<=40&&foodlayer.childList[k].x-this.x<=40)&&(foodlayer.childList[k].y-this.y<=80&&this.y-foodlayer.childList[k].y<=80))
+		{
+			
+			foodlayer.removeChild(foodlayer.childList[k]);
+
+			// sound = new LSound();
+			// sound.play("./sound/mie.mp3");
+			// sound.stop();
+			foodnumber+=1;
+			foodText.text=foodnumber;
+
+				
+			if(this.mp<this.maxmp)
+			{
+				this.mp++;
+			}		
+			
+		}//吃食物加小人蓝量
 	}
 
 	this.anime.onframe();

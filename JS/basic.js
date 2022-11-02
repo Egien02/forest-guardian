@@ -71,6 +71,8 @@ function gameset()//游戏设置界面
 
 function gamestart()//画面初始化
 {
+	sound.stop();
+	sound1.play();
 	foodnumber = 0; //食物数
 	floornumber = 0;//楼层数
 	bglayer.die();
@@ -78,7 +80,7 @@ function gamestart()//画面初始化
 	backg = new Background();
 	bglayer.addChild(backg);//运动的背景层是一个新的类型，是背景层之子。
 	/*背景层的声明一定要在字层声明之前，否则字会被覆盖掉。*/
-	var foodIcon=new LBitmap(new LBitmapData(imglist["foodicon"]));
+	foodIcon=new LBitmap(new LBitmapData(imglist["foodicon"]));
 	foodIcon.y = 60;
 	foodIcon.x = 1;
 	bglayer.addChild(foodIcon);
@@ -123,6 +125,9 @@ function gamestart()//画面初始化
 	foodlayer = new LSprite();
 	bglayer.addChild(foodlayer);
 
+	BlackHolelayer = new LSprite();
+	bglayer.addChild(BlackHolelayer);
+
 	initrabbit();
 
 	//addEventListener(type,listener)
@@ -165,12 +170,18 @@ function onframe()
 	}
 	//添加地板
 
-	// if(foodadd-- <= 0)
-	// {
-	// 	foodadd = 50;
-	// 	addfood();
-	// }//添加食物
+	if(foodadd-- <= 0)
+	{
+		foodadd = 20;
+		addfood();
+	}//添加食物
 
+	if(holeadd-- <= 0)
+	{
+		holeadd=300;
+		addBlack();
+	}
+	
 	var i = null;
 	for(i in floorlayer.childList)
 	{
@@ -184,17 +195,28 @@ function onframe()
 		kid.run();
 		
 	}
-	// var j = null;
-	// for(j in foodlayer.childList)//超过顶层食物消失
-	// {
-	// 	var kid1 = foodlayer.childList[j];
-	// 	if(kid1.y <= -1*kid1.getHeight())
-	// 	{	
-	// 		//console.log("食物跑了");
-	// 		foodlayer.removeChild(kid1);
-	// 	}
-	// 	kid1.run();
-	// }
+	var j=null;
+	for(j in BlackHolelayer.childList)
+	{
+		var kid1=BlackHolelayer.childList[j];
+		if(kid1.y<=-1*kid1.getHeight())
+		{	
+			BlackHolelayer.removeChild(kid1);
+		}
+		kid1.run();
+	}
+
+	var k = null;
+	for(k in foodlayer.childList)//超过顶层食物消失
+	{
+		var kid2 = foodlayer.childList[k];
+		if(kid2.k <= -1*kid2.getHeight())
+		{	
+			//console.log("食物跑了");
+			foodlayer.removeChild(kid2);
+		}
+		kid2.run();
+	}
 
 
 	rabbit.run();
@@ -210,7 +232,7 @@ function onframe()
 	}
 	else{
 		lifetiao.drawRect(3,"#000000",[0, 20, 200*(rabbit.hp/rabbit.maxhp), 10], true, "#F5B509");
-	}//尚未解决
+	}
 	
 	if(floornumber > 9){
 		flootText.x = 130;
@@ -228,25 +250,48 @@ function over()//游戏结束界面
 	first = true;
 	bglayer.die();//背景层die
 	overlayer = new LSprite();
-	overlayer.graphics.drawRect(4, "#009DD6", [90, 150, 300, 300], true, "#ffffff");
 	bglayer.addChild(overlayer);
+	sound1.close();
+	
+	if(foodnumber==0)
+	{
+		fail=new LBitmap(new LBitmapData(imglist["fail1"]));
+	}
+	else if(foodnumber==1)
+	{
+		fail=new LBitmap(new LBitmapData(imglist["fail2"]));
+	}
+	else if(foodnumber==2)
+	{
+		fail=new LBitmap(new LBitmapData(imglist["fail3"]));
+	}
+	else
+	{
+		fail=new LBitmap(new LBitmapData(imglist["fail4"]));
+	}
 
-	tiplayer1 = new LTextField();
-	tiplayer1.size = 40;
-	tiplayer1.color = "#000000";
-	tiplayer1.text = "您的成绩为" + floornumber + "层";
-	tiplayer1.x = 100;
-	tiplayer1.y = 240;
-	overlayer.addChild(tiplayer1);
+	fail.y = 230;
+	fail.x = 135;
+	overlayer.addChild(fail);
 
-	tiplayer2 = new LTextField();
-	tiplayer2.size = 20;
-	tiplayer2.color = "#000000";
-	tiplayer2.text = "点击鼠标左键继续挑战";
-	tiplayer2.x = 145;
-	tiplayer2.y = 350;
-	overlayer.addChild(tiplayer2);
-	bglayer.addEventListener(LMouseEvent.MOUSE_UP,gamestart);
+	restart =new LBitmap(new LBitmapData(imglist["restart"]));
+	restartButton = new LButton(restart, restart);
+	restartButton.y=440;
+	restartButton.x=215;
+	overlayer.addChild(restartButton);
+
+
+	score=new LTextField();
+	score.size = 15;
+	score.color = "white";
+	score.stroke = true;
+	score.text = floornumber;
+	score.x = 275;
+	score.y = 385;
+	overlayer.addChild(score);
+
+	restartButton.addEventListener(LMouseEvent.MOUSE_UP,gamestart);
+
 }
 
 //游戏结束时的提示函数
