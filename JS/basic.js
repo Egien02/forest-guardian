@@ -71,8 +71,8 @@ function gameset()//游戏设置界面
 
 function gamestart()//画面初始化
 {
-	sound.stop();
-	sound1.play();
+	// sound.stop();
+	// sound1.play();
 	foodnumber = 0; //食物数
 	floornumber = 0;//楼层数
 	bglayer.die();
@@ -240,9 +240,61 @@ function onframe()
 
 	flootText.text = floornumber;
 
+	if(floornumber >= 10){
+		win();
+	}
+
 	if(!rabbit.hp){
 		over();
 	}
+}
+
+
+
+function win()
+{
+	bglayer.die();//背景层die
+	winlayer = new LSprite();
+	bglayer.addChild(winlayer);
+
+	if(foodnumber==0)
+	{
+		win=new LBitmap(new LBitmapData(imglist["win1"]));
+	}
+	else if(foodnumber==1)
+	{
+		win=new LBitmap(new LBitmapData(imglist["win2"]));
+	}
+	else if(foodnumber==2)
+	{
+		win=new LBitmap(new LBitmapData(imglist["win3"]));
+	}
+	else
+	{
+		win=new LBitmap(new LBitmapData(imglist["win4"]));
+	}
+
+	win.y = 120;
+	win.x = 135;
+	winlayer.addChild(win);
+
+	next =new LBitmap(new LBitmapData(imglist["nextLevel"]));
+	nextButton = new LButton(next, next);
+	nextButton.y=440;
+	nextButton.x=215;
+	winlayer.addChild(nextButton);
+
+
+	score=new LTextField();
+	score.size = 15;
+	score.color = "white";
+	score.stroke = true;
+	score.text = floornumber;
+	score.x = 275;
+	score.y = 378;
+	winlayer.addChild(score);
+
+	nextButton.addEventListener(LMouseEvent.MOUSE_UP,gamestart);
 }
 
 function over()//游戏结束界面
@@ -251,7 +303,8 @@ function over()//游戏结束界面
 	bglayer.die();//背景层die
 	overlayer = new LSprite();
 	bglayer.addChild(overlayer);
-	sound1.close();
+
+	// sound1.close();
 	
 	if(foodnumber==0)
 	{

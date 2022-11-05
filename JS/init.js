@@ -20,8 +20,9 @@ function main()
 	//list:指定的需要加载数据的数组。
 	//onUpdate:加载过程中调用的函数，一般用来显示游戏进度。
 	//onComplete: list中全部文件加载完成时调用此函数
-	sound = new LSound();
-    sound.load("./Sound/Harmonious.mp3");
+
+	// sound = new LSound();
+    // sound.load("./Sound/Harmonious.mp3");
    
 	LLoadManage.load(imgdata,function(progress)
         {
@@ -39,13 +40,13 @@ function gameinit(result)//加载完毕返回result为图片数组，进行游�
 	bglayer.die();//清空所有图形以及事件。
 	bglayer.removeAllChild();//删除所有子实例
 
-	sound.addEventListener(LEvent.COMPLETE,function()
-	{
-		sound.play();
-	});
+	// sound.addEventListener(LEvent.COMPLETE,function()
+	// {
+	// 	sound.play();
+	// });
 
-	sound1 = new LSound();
-    sound1.load("./Sound/Grad-Erlija.mp3");
+	// sound1 = new LSound();
+    // sound1.load("./Sound/Grad-Erlija.mp3");
 	
 	// LBitmap 类表示用于表示位图图像的显示对象
 	//创建一个具有指定的宽度和高度的 LBitmapData 对象。

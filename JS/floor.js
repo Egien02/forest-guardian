@@ -4,7 +4,9 @@ function Floor()
 	base(this,LSprite,[]);
 	this.pic();	//将图片赋值后添加到木板数组里
 	this.typ=0;//木板类型
-	
+
+
+    
 }
 Floor.prototype.run = function()
 {
@@ -38,20 +40,34 @@ function Floorb() //跳跃木板  继承floor
 
 Floorb.prototype.pic = function()
 {
+	
 	this.bitmap = new LBitmap(new LBitmapData(imglist["spring"]));
 	this.addChild(this.bitmap);
+
+	// var list = LGlobal.divideCoordinate(700,28,1,6);
+    // this.bitmap = new LBitmapData(imglist["spring"],0,0,116,28);
+	// var spring = new LAnimationTimeline(this.bitmap, list);
+	// spring.speed = 2;
+    // this.addChild(spring);
 }
 
 function Floorc() //移动木板  继承floor
 {
 	base(this,Floor,[]);
 	this.typ = 3;
+	
 }
 
 Floorc.prototype.pic = function()
 {
-	this.bitmap = new LBitmap(new LBitmapData(imglist["r_slide"]));
-	this.addChild(this.bitmap);
+	var list = LGlobal.divideCoordinate(820,34,1,8);
+    this.bitmap = new LBitmapData(imglist["r_slide"],0,0,100,34);
+	var paper = new LAnimationTimeline(this.bitmap, list);
+	paper.speed = 2;
+    this.addChild(paper);
+	// this.bitmap = new LBitmap(new LBitmapData(imglist["r_slide"]));
+	// this.addChild(this.bitmap);
+
 }
 
 function Floord() //带刺木板  继承floor
@@ -77,6 +93,8 @@ Floore.prototype.pic=function() //将图片赋值
 	this.bitmap = new LBitmap(new LBitmapData(imglist["vanish"]));
 	this.addChild(this.bitmap);
 }
+
+
 
 function addfloor()
 {

@@ -28,12 +28,17 @@ var imgdata = new Array(//这是个存图片的数组，为了一会加载用
 	{name:"sound",path:"./IMG/sound.png"},
 	{name:"up_thorn",path:"./IMG/up_thorn.png"},//顶刺
 	{name:"hole",path:"./IMG/black.png"},//黑洞
-	{name:"holeback",path:"./IMG/ksl1.jpg"},//黑洞背景
+	{name:"holeback",path:"./IMG/ksl1.png"},//黑洞背景
 	{name:"fail1",path:"./IMG/fail1.png"},//失败0颗星
 	{name:"fail2",path:"./IMG/fail2.png"},//失败1颗星
 	{name:"fail3",path:"./IMG/fail3.png"},//失败2颗星
 	{name:"fail4",path:"./IMG/fail4.png"},//失败3颗星
-	{name:"restart",path:"./IMG/restart.png"});//重新开始
+	{name:"restart",path:"./IMG/restart.png"},
+	{name:"win1",path:"./IMG/win1.png"},
+	{name:"win2",path:"./IMG/win2.png"},
+	{name:"win3",path:"./IMG/win3.png"},
+	{name:"win4",path:"./IMG/win4.png"},
+	{name:"nextLevel",path:"./IMG/nextLevel.png"});//下一关
 	
 var	first =true;//游戏开始时添加的第一块木板防止小人直接坠下
 var imglist=new Array();//存储加载完成的图片
